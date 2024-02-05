@@ -9,13 +9,14 @@ const FormContainer: React.FC = () => {
   return (
     <>
       <Form.Root className="w-11/12 flex flex-col m-auto gap-4 items-center my-8">
-        <Image alt="icon" src={icon} width={300}></Image>
+        <Image alt="icon" priority={true} src={icon} width={300}></Image>
         <Form.Field
           name="username"
           className="flex flex-col items-center text-center gap-2"
         >
-          <Form.Label />
-          Insert the name you are looking for
+          <Form.Label className="text-lg">
+            Insert the name you are looking for
+          </Form.Label>
           <Form.Control
             className="bordersContainers rounded-md px-1 py-1"
             required
