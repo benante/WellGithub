@@ -20,6 +20,12 @@
   .text-balance {
     text-wrap: balance;
   }
+  .bordersContainers {
+    border: 2px solid;
+  }
+  .spaceInText {
+    letter-spacing: 0.1em;
+  }
 }
 
 * {
