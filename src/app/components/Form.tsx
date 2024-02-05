@@ -16,8 +16,11 @@ const FormContainer: React.FC = () => {
         >
           <Form.Label />
           Insert the name you are looking for
-          <Form.Control className="bordersContainers rounded-md px-1 py-1" />
-          <Form.Message match="valueMissing">
+          <Form.Control
+            className="bordersContainers rounded-md px-1 py-1"
+            required
+          />
+          <Form.Message match="valueMissing" className="text-black opacity-75">
             Please insert a user name
           </Form.Message>
           {/* <Form.ValidityState /> */}
