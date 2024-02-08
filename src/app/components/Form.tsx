@@ -1,6 +1,7 @@
 'use client';
 
 import * as Form from '@radix-ui/react-form';
+import Loading from './Loading';
 import React, { useState } from 'react';
 import fetchUser from '../api/github';
 
@@ -20,6 +21,7 @@ const FormContainer: React.FC = () => {
         onSubmit={handleForm}
         className="w-11/12 flex flex-col m-auto gap-4 items-center my-8"
       >
+        <Loading></Loading>
         <Image alt="icon" priority={true} src={icon} width={300}></Image>
         <Form.Field
           name="username"
