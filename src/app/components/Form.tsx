@@ -1,14 +1,22 @@
 'use client';
 
 import * as Form from '@radix-ui/react-form';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import icon from '../../../public/android-chrome-512x512.png';
 
 const FormContainer: React.FC = () => {
+  const [username, setUsername] = useState('');
+
+  function handleForm(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+  }
   return (
     <>
-      <Form.Root className="w-11/12 flex flex-col m-auto gap-4 items-center my-8">
+      <Form.Root
+        onSubmit={handleForm}
+        className="w-11/12 flex flex-col m-auto gap-4 items-center my-8"
+      >
         <Image alt="icon" priority={true} src={icon} width={300}></Image>
         <Form.Field
           name="username"
@@ -20,6 +28,8 @@ const FormContainer: React.FC = () => {
           <Form.Control
             className="bordersContainers rounded-md px-1 py-1"
             required
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
           <Form.Message match="valueMissing" className="text-black opacity-75">
             Please insert a user name
