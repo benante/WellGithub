@@ -7,3 +7,6 @@ const fetchUser = async (username: string) => {
 };
 
 console.log(fetchUser("benante"));
+
+
+export default fetchUser

@@ -2,6 +2,8 @@
 
 import * as Form from '@radix-ui/react-form';
 import React, { useState } from 'react';
+import fetchUser from '../api/github';
+
 import Image from 'next/image';
 import icon from '../../../public/android-chrome-512x512.png';
 
@@ -10,6 +12,7 @@ const FormContainer: React.FC = () => {
 
   function handleForm(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
+    fetchUser(username);
   }
   return (
     <>
