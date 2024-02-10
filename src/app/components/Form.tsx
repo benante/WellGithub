@@ -17,9 +17,11 @@ const FormContainer: React.FC = () => {
   ): Promise<void> {
     try {
       event.preventDefault();
+      // Set loading to true, wait for the data to be fetched, then set loading to false
       setLoading(true);
-      console.log(loading);
       await fetchUser(username);
+    } catch (error) {
+      console.log(error);
     } finally {
       setTimeout(() => {
         setLoading(false);
