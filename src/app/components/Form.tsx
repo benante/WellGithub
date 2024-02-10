@@ -9,29 +9,32 @@ import Image from 'next/image';
 import icon from '../../../public/android-chrome-512x512.png';
 
 const FormContainer: React.FC = () => {
-  const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState('');
 
-  function handleForm(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    fetchUser(username);
+  async function handleForm(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    try {
+      event.preventDefault();
+      setLoading(true);
+      console.log(loading);
+      await fetchUser(username);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
   }
   return (
     <>
       {loading ? (
-        () => {
-          {
-            console.log(loading);
-          }
-
-          <Loading />;
-        }
+        <Loading />
       ) : (
         <Form.Root
           onSubmit={handleForm}
           className="w-11/12 flex flex-col m-auto gap-4 items-center my-8"
         >
-          <Loading></Loading>
           <Image alt="icon" priority={true} src={icon} width={300}></Image>
           <Form.Field
             name="username"
