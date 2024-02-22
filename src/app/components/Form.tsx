@@ -4,11 +4,13 @@ import * as Form from '@radix-ui/react-form';
 import Loading from './Loading';
 import React, { useEffect, useState } from 'react';
 import fetchUser from '../api/github';
+import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';
 import icon from '../../../public/android-chrome-512x512.png';
 
 const FormContainer: React.FC = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
 
@@ -19,7 +21,10 @@ const FormContainer: React.FC = () => {
       event.preventDefault();
       // Set loading to true, wait for the data to be fetched, then set loading to false
       setLoading(true);
-      await fetchUser(username);
+      const data = await fetchUser(username);
+      if (data.login) {
+        router.push(`/search/${username}`);
+      }
     } catch (error) {
       console.log(error);
     } finally {
