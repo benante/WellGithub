@@ -2,7 +2,7 @@
 
 import * as Form from '@radix-ui/react-form';
 import Loading from './Loading';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import fetchUser from '../api/github';
 import { useRouter } from 'next/navigation';
 
@@ -23,7 +23,7 @@ const FormContainer: React.FC = () => {
       setLoading(true);
       const data = await fetchUser(username);
       if (data.login) {
-        router.push(`/search/${username}`);
+        router.push(`/user/${username}`);
       }
     } catch (error) {
       console.log(error);
