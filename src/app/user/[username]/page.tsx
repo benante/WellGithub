@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import fetchUser from '@/app/api/github';
+import AvatarContainer from '@/app/components/AvatarContainer';
 
 const mock = {
   login: 'benante',
@@ -13,7 +14,6 @@ const mock = {
 
 interface Info {
   login: string;
-  id: number;
   avatar_url: string | null;
   company: string | null;
   email: string | null;
@@ -32,7 +32,6 @@ function Page({ params }: { params: { username: string } }) {
       const res = await fetchUser(params.username);
       const {
         login,
-        id,
         avatar_url,
         company,
         email,
@@ -44,7 +43,6 @@ function Page({ params }: { params: { username: string } }) {
       } = res;
       const userInfo: Info = {
         login,
-        id,
         avatar_url,
         company,
         email,
@@ -65,7 +63,18 @@ function Page({ params }: { params: { username: string } }) {
         <ul>
           {Object.entries(user).map(([key, value]) => (
             <li key={key}>
-              <strong>{key}</strong>: {value}
+              {key === 'avatar_url' ? (
+                <AvatarContainer src={value as string}></AvatarContainer>
+              ) : key === 'url' ? (
+                <>
+                  <strong>github page</strong>:{' '}
+                  <a href={value as string}>{value as string}</a>
+                </>
+              ) : (
+                <>
+                  <strong>{key}</strong>: {(value as ReactNode) || 'N/a'}
+                </>
+              )}
             </li>
           ))}
         </ul>
