@@ -8,7 +8,7 @@ interface AvatarContainerProps {
 const AvatarContainer: React.FC<AvatarContainerProps> = ({ src }) => {
   return (
     <Avatar.Root>
-      <Avatar.Image src={src} />
+      <Avatar.Image className="rounded-full" src={src} />
       <Avatar.Fallback />
     </Avatar.Root>
   );
