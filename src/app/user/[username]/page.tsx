@@ -3,6 +3,7 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import fetchUser from '@/app/api/github';
 import AvatarContainer from '@/app/components/AvatarContainer';
+import CardUserInfo from '@/app/components/CardUser';
 
 interface Info {
   name: string;
@@ -55,32 +56,7 @@ function Page({ params }: { params: { username: string } }) {
   return (
     <>
       <div className="">
-        {user && (
-          <div>
-            <ul>
-              {Object.entries(user).map(([key, value]) => (
-                <li key={key}>
-                  {key === 'avatar_url' ? (
-                    <AvatarContainer src={value as string}></AvatarContainer>
-                  ) : key === 'url' ? (
-                    <>
-                      <strong>github page</strong>:{' '}
-                      <a href={value as string}>{value as string}</a>
-                    </>
-                  ) : key === 'login' ? (
-                    <>
-                      <strong>{value as string}</strong>
-                    </>
-                  ) : (
-                    <>
-                      <strong>{key}</strong>: {(value as ReactNode) || 'N/a'}
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {user && <CardUserInfo user={user}></CardUserInfo>}
       </div>
     </>
   );
