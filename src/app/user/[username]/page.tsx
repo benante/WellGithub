@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
 import fetchUser from '@/app/api/github';
 import AvatarContainer from '@/app/components/AvatarContainer';
 import CardUserInfo from '@/app/components/CardUser';
@@ -8,7 +8,7 @@ import CardUserInfo from '@/app/components/CardUser';
 interface Info {
   name: string;
   login: string;
-  avatar_url: string | null;
+  avatar_url: string;
   company: string | null;
   email: string | null;
   followers: number;
@@ -19,7 +19,7 @@ interface Info {
 }
 
 function Page({ params }: { params: { username: string } }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<Info | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +56,15 @@ function Page({ params }: { params: { username: string } }) {
   return (
     <>
       <div className="">
-        {user && <CardUserInfo user={user}></CardUserInfo>}
+        {user && (
+          <>
+            <AvatarContainer
+              src={user.avatar_url}
+              name={user.name}
+            ></AvatarContainer>
+            <CardUserInfo user={user}></CardUserInfo>
+          </>
+        )}
       </div>
     </>
   );
