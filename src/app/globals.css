@@ -30,8 +30,18 @@
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
   background-color: #f3f3f3;
+}
+
+.borders-container {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.shadow {
+  box-shadow: 3px 3px black;
 }

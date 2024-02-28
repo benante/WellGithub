@@ -55,16 +55,19 @@ function Page({ params }: { params: { username: string } }) {
 
   return (
     <>
-      <div className="">
-        {user && (
-          <>
-            <AvatarContainer
-              src={user.avatar_url}
-              name={user.name}
-            ></AvatarContainer>
-            <CardUserInfo user={user}></CardUserInfo>
-          </>
-        )}
+      <div className=" flex flex-col justify-center mx-2 my-14">
+        <p className="text-center text-2xl">We found</p>
+        <div className="flex flex-col items-center my-1">
+          {user && (
+            <>
+              <AvatarContainer
+                src={user.avatar_url}
+                name={user.login}
+              ></AvatarContainer>
+              {/* <CardUserInfo user={user}></CardUserInfo> */}
+            </>
+          )}
+        </div>
       </div>
     </>
   );
