@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import fetchUser from '@/app/api/github';
 import AvatarContainer from '@/app/components/AvatarContainer';
+import BackBtn from '@/app/components/BackBtn';
 import CardUserInfo from '@/app/components/CardUser';
 
 interface Info {
@@ -65,6 +66,7 @@ function Page({ params }: { params: { username: string } }) {
                 name={user.login}
               ></AvatarContainer>
               {/* <CardUserInfo user={user}></CardUserInfo> */}
+              <BackBtn></BackBtn>
             </>
           )}
         </div>
