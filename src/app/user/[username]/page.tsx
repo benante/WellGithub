@@ -21,6 +21,11 @@ interface Info {
 
 function Page({ params }: { params: { username: string } }) {
   const [user, setUser] = useState<Info | null>(null);
+  const [toggle, setToggle] = useState(false);
+
+  const toggleInfo = (): void => {
+    setToggle(true);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +67,7 @@ function Page({ params }: { params: { username: string } }) {
           {user && (
             <>
               <AvatarContainer
+                onClick={toggleInfo}
                 src={user.avatar_url}
                 name={user.login}
               ></AvatarContainer>
