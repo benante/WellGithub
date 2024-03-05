@@ -16,7 +16,7 @@ interface Info {
   following: number;
   location: string | null;
   public_repos: number | null;
-  url: string;
+  html_url: string;
 }
 
 function Page({ params }: { params: { username: string } }) {
@@ -24,7 +24,7 @@ function Page({ params }: { params: { username: string } }) {
   const [toggle, setToggle] = useState(false);
 
   const toggleInfo = (): void => {
-    setToggle(true);
+    setToggle(!toggle);
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Page({ params }: { params: { username: string } }) {
         following,
         location,
         public_repos,
-        url,
+        html_url,
       } = res;
       const userInfo: Info = {
         name,
@@ -52,7 +52,7 @@ function Page({ params }: { params: { username: string } }) {
         following,
         location,
         public_repos,
-        url,
+        html_url,
       };
       setUser(userInfo);
     };
@@ -71,7 +71,8 @@ function Page({ params }: { params: { username: string } }) {
                 src={user.avatar_url}
                 name={user.login}
               ></AvatarContainer>
-              {/* <CardUserInfo user={user}></CardUserInfo> */}
+              {toggle && <CardUserInfo user={user}></CardUserInfo>}
+
               <BackBtn></BackBtn>
             </>
           )}
