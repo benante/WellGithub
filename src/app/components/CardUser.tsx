@@ -6,7 +6,7 @@ interface CardUserProps {
 
 const CardUserInfo: React.FC<CardUserProps> = ({ user }) => {
   return (
-    <div className="w-full bg-white p-2 my-4 borders-container shadow">
+    <div className="max-w-fit bg-white p-8 my-4 borders-container shadow">
       <ul className="overflow-auto">
         {Object.entries(user).map(([key, value]) => (
           <li key={key}>
