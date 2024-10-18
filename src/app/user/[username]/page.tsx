@@ -23,7 +23,7 @@ function Page({ params }: { params: { username: string } }) {
   const [user, setUser] = useState<Info | null>(null);
   const [toggle, setToggle] = useState(false);
 
-  const toggleInfo = (): void => {
+  const toggleElement = (): void => {
     setToggle(!toggle);
   };
 
@@ -67,11 +67,16 @@ function Page({ params }: { params: { username: string } }) {
           {user && (
             <>
               <AvatarContainer
-                onClick={toggleInfo}
+                onClick={toggleElement}
                 src={user.avatar_url}
                 name={user.login}
               ></AvatarContainer>
               {toggle && <CardUserInfo user={user}></CardUserInfo>}
+              {!toggle && (
+                <p className="text-center text-sm" onClick={toggleElement}>
+                  Click on the card for more info
+                </p>
+              )}
 
               <BackBtn></BackBtn>
             </>

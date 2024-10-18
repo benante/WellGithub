@@ -14,7 +14,7 @@ const AvatarContainer: React.FC<AvatarContainerProps> = ({
 }) => {
   return (
     <div
-      className="bg-white max-w-sm my-2 flex flex-col items-center gap-1 pt-3 borders-container shadow w-3/4"
+      className="bg-white max-w-sm my-2 flex flex-col items-center gap-1 pt-3 borders-container shadow w-3/4 cursor-pointer"
       onClick={onClick}
     >
       <Avatar.Root className="flex justify-center">

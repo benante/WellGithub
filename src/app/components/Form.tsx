@@ -23,6 +23,7 @@ const FormContainer: React.FC = () => {
       setLoading(true);
       const data = await fetchUser(username);
       if (data.login) {
+        console.log(data);
         router.push(`/user/${username}`);
       }
     } catch (error) {
