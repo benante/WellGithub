@@ -49,7 +49,7 @@ const FormContainer: React.FC = () => {
             className="flex flex-col items-center text-center gap-2"
           >
             <Form.Label className="text-lg">
-              Insert the name you are looking for
+              Insert the username you are looking for
             </Form.Label>
             <Form.Control
               className="bordersContainers rounded-md px-1 py-1"
