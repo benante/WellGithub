@@ -14,24 +14,32 @@ const FormContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
 
+  // this function is a basic promise used to set the loading time before data get handled
+  const loadingTime = async () => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2500);
+    });
+  };
+
   async function handleForm(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     try {
       event.preventDefault();
-      // Set loading to true, wait for the data to be fetched, then set loading to false
       setLoading(true);
       const data = await fetchUser(username);
-      if (data.login) {
-        console.log(data);
-        router.push(`/user/${username}`);
+      await loadingTime();
+      // if user is not found throw Error and redirect to error page in the catch statement
+      if (!data.login) {
+        throw new Error('User not found');
       }
+      // else push to user's page
+      console.log(data);
+      router.push(`/user/${username}`);
     } catch (error) {
-      console.log(error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+      router.push('/error');
     }
   }
   return (

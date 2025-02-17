@@ -2,7 +2,10 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { IoArrowBack } from 'react-icons/io5';
 
-const BackBtn = () => {
+interface BackBtnProps {
+  message?: string;
+}
+const BackBtn: React.FC<BackBtnProps> = ({ message }) => {
   const router = useRouter();
 
   return (
@@ -11,7 +14,11 @@ const BackBtn = () => {
       onClick={() => router.back()}
       className="bg-white border border-black rounded-2xl shadow px-4 py-1.5 my-6"
     >
-      <IoArrowBack size={'2em'}></IoArrowBack>
+      {message ? (
+        <span>{message}</span>
+      ) : (
+        <IoArrowBack size={'2em'}></IoArrowBack>
+      )}
     </button>
   );
 };
