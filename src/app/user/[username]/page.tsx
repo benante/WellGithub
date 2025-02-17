@@ -5,22 +5,10 @@ import fetchUser from '@/app/api/github';
 import AvatarContainer from '@/app/components/AvatarContainer';
 import BackBtn from '@/app/components/BackBtn';
 import CardUserInfo from '@/app/components/CardUser';
-
-interface Info {
-  name: string;
-  login: string;
-  avatar_url: string;
-  company: string | null;
-  email: string | null;
-  followers: number;
-  following: number;
-  location: string | null;
-  public_repos: number | null;
-  html_url: string;
-}
+import User from '@/app/types/types';
 
 function Page({ params }: { params: { username: string } }) {
-  const [user, setUser] = useState<Info | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [toggle, setToggle] = useState(false);
 
   const toggleElement = (): void => {
@@ -42,7 +30,7 @@ function Page({ params }: { params: { username: string } }) {
         public_repos,
         html_url,
       } = res;
-      const userInfo: Info = {
+      const userInfo: User = {
         name,
         login,
         avatar_url,

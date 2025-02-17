@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
+import User from '@/app/types/types';
+import Link from 'next/link';
 
 interface CardUserProps {
-  user: object;
+  user: User;
 }
 
 const CardUserInfo: React.FC<CardUserProps> = ({ user }) => {
@@ -15,11 +17,23 @@ const CardUserInfo: React.FC<CardUserProps> = ({ user }) => {
             ) : key === 'html_url' ? (
               <>
                 <strong>github page</strong>:{' '}
-                <a href={value}>{(value as ReactNode) || 'N/a'}</a>
+                <Link className="text-blue-600" href={value}>
+                  {value || 'N/a'}
+                </Link>
+              </>
+            ) : key === 'public_repos' ? (
+              <>
+                <strong>{key}</strong>:{' '}
+                <Link
+                  className="text-blue-600"
+                  href={`/user/${user.name}/repos`}
+                >
+                  {value || 'N/a'}
+                </Link>
               </>
             ) : (
               <>
-                <strong>{key}</strong>: {(value as ReactNode) || 'N/a'}
+                <strong>{key}</strong>: {value || 'N/a'}
               </>
             )}
           </li>
