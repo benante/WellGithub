@@ -57,7 +57,7 @@ function Page({ params }: { params: { username: string } }) {
       setUser(userInfo);
     };
     fetchData();
-  });
+  }, [params.username]);
 
   return (
     <>
