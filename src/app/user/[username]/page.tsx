@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import fetchUser from '@/app/api/github';
+import { fetchUser } from '@/app/api/github';
 import AvatarContainer from '@/app/components/AvatarContainer';
 import BackBtn from '@/app/components/BackBtn';
 import CardUserInfo from '@/app/components/CardUser';

@@ -3,7 +3,7 @@
 import * as Form from '@radix-ui/react-form';
 import Loading from './Loading';
 import React, { useState } from 'react';
-import fetchUser from '../api/github';
+import { fetchUser } from '../api/github';
 import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';

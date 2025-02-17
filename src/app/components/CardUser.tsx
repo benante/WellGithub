@@ -26,7 +26,7 @@ const CardUserInfo: React.FC<CardUserProps> = ({ user }) => {
                 <strong>{key}</strong>:{' '}
                 <Link
                   className="text-blue-600"
-                  href={`/user/${user.name}/repos`}
+                  href={`/user/${user.login}/repos`}
                 >
                   {value || 'N/a'}
                 </Link>
