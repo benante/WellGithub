@@ -10,3 +10,13 @@ export default interface User {
   public_repos: number | null;
   html_url: string;
 }
+
+export interface Repo {
+  name: string;
+  description: string | null;
+  html_url: string;
+  created_at: string;
+  updated_at: string;
+  pushed_at: string;
+  language: string | null;
+}
