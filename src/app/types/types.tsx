@@ -19,4 +19,5 @@ export interface Repo {
   updated_at: string;
   pushed_at: string;
   language: string | null;
+  homepage: string | null;
 }
