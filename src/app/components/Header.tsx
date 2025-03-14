@@ -5,7 +5,7 @@ import React from 'react';
 const Header: React.FC = () => {
   return (
     <>
-      <div className="flex justify-around items-center p-4 border-2 border-black bg-white">
+      <nav className="flex justify-around items-center p-4 border-b-2 border-b-black bg-white">
         <div>
           <Link href={'/'}>
             <h1 className="spaceInText font-bold text-3xl md:text-5xl ">
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
         <Link href="https://github.com/" aria-label="GitHub Link">
           <FaGithub size={80} />
         </Link>
-      </div>
+      </nav>
     </>
   );
 };

@@ -26,7 +26,7 @@ const ReposPage = () => {
             created_at: repo.created_at,
             updated_at: repo.updated_at,
             language: repo.language || 'N/A',
-            homepage: repo.homepage || 'N/A',
+            homepage: repo.homepage || undefined,
           };
           return repository;
         });
@@ -46,17 +46,17 @@ const ReposPage = () => {
           {reposArray.map((repo) => (
             <div
               key={repo.name}
-              className=" bg-white p-8 my-4 borders-container shadow "
+              className=" bg-white flex flex-col  p-8 my-4 borders-container shadow "
             >
               <li className="mb-2">
-                <strong>Name</strong>: {repo.name}
+                <strong>{repo.name.toUpperCase()}</strong>
                 {repo.description && <p>{repo.description}</p>}
               </li>
 
               <p>
                 <strong>Github page</strong>:{' '}
                 <Link
-                  className="text-blue-600"
+                  className="text-blue-600 break-words"
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -66,14 +66,18 @@ const ReposPage = () => {
               </p>
               <p>
                 <strong>Project webpage</strong>:{' '}
-                <Link
-                  className="text-blue-600"
-                  href={repo.homepage!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {repo.homepage}
-                </Link>
+                {repo.homepage !== undefined ? (
+                  <Link
+                    className="text-blue-600 break-words"
+                    href={repo.homepage!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {repo.homepage}
+                  </Link>
+                ) : (
+                  <>N/A</>
+                )}
               </p>
               <p>
                 <strong>Created at</strong>:{' '}
