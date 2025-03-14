@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { fetchRepos } from '@/app/api/github';
 import { Repo } from '@/app/types/types';
+import Link from 'next/link';
 
 const ReposPage = () => {
   const params = useParams();
@@ -20,7 +21,7 @@ const ReposPage = () => {
         const copyArray = repos.map((repo: Repo) => {
           const repository = {
             name: repo.name,
-            description: repo.description || 'N/A',
+            description: repo.description,
             html_url: repo.html_url,
             created_at: repo.created_at,
             updated_at: repo.updated_at,
@@ -38,46 +39,49 @@ const ReposPage = () => {
   }, [userName]);
 
   return (
-    <main className=" flex flex-col justify-center mx-2 my-14">
-      <h1 className="text-center text-2xl">Public Repos by {userName}</h1>
-      <div>
-        <ul className="flex flex-col items-center my-1">
+    <main className="  my-14">
+      <h1 className="text-center text-2xl">Public repos by {userName}</h1>
+      <div className="m-4">
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xlg:grid-cols-3">
           {reposArray.map((repo) => (
             <div
               key={repo.name}
-              className=" bg-white p-8 my-4 borders-container shadow"
+              className=" bg-white p-8 my-4 borders-container shadow "
             >
-              <li>
+              <li className="mb-2">
                 <strong>Name</strong>: {repo.name}
+                {repo.description && <p>{repo.description}</p>}
               </li>
+
               <p>
-                <strong>Description</strong>: {repo.description}
-              </p>
-              <p>
-                <strong>Github page</strong>:
-                <a
+                <strong>Github page</strong>:{' '}
+                <Link
+                  className="text-blue-600"
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {repo.html_url}
-                </a>
+                </Link>
               </p>
               <p>
-                <strong>Project webpage</strong>:
-                <a
-                  href={repo.homepage || undefined}
+                <strong>Project webpage</strong>:{' '}
+                <Link
+                  className="text-blue-600"
+                  href={repo.homepage!}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {repo.homepage}
-                </a>
+                </Link>
               </p>
               <p>
-                <strong>Created at</strong>: {repo.created_at}
+                <strong>Created at</strong>:{' '}
+                {new Date(repo.created_at).toDateString()}
               </p>
               <p>
-                <strong>Last update</strong>: {repo.updated_at}
+                <strong>Last update</strong>:{' '}
+                {new Date(repo.updated_at).toDateString()}
               </p>
               <p>
                 <strong>Main language</strong>: {repo.language}
