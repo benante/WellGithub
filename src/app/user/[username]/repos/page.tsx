@@ -4,12 +4,20 @@ import { useParams } from 'next/navigation';
 import { fetchRepos } from '@/app/api/github';
 import { Repo } from '@/app/types/types';
 import Link from 'next/link';
+import sortBy from '@/app/sortBy';
 
 const ReposPage = () => {
   const params = useParams();
   const userName = params.username as string;
 
   const [reposArray, setReposArray] = useState<Repo[]>([]);
+  const [order, setOrder] = useState<string>('');
+  const [indexPagination, setIndexPagination] = useState<number>(0);
+
+  // PAGINATION >>
+  // 1. Set number pages
+  // 2. Render correct slice of array
+  // 3. Render pagination number
 
   useEffect(() => {
     getData();
@@ -34,10 +42,19 @@ const ReposPage = () => {
         };
         return repository;
       });
+
       setReposArray(copyArray);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOrder = e.currentTarget.value;
+    setOrder(newOrder);
+    const orderedArray = [...reposArray];
+    sortBy(orderedArray, newOrder);
+    setReposArray(orderedArray);
   };
 
   return (
@@ -50,10 +67,7 @@ const ReposPage = () => {
             className=" bg-slate-200 ml-2 border-2   border-slate-900 rounded-md p-"
             name="selection"
             id="selection"
-            onClick={(e) => {
-              if (e.currentTarget.value !== '')
-                console.log(e.currentTarget.value);
-            }}
+            onChange={handleOrder}
           >
             <option value="">--Choose order--</option>
             <option value="last-updated">last updated</option>
@@ -66,14 +80,14 @@ const ReposPage = () => {
       <section>
         <nav aria-label="pagination">
           <ul>
-            <li>1</li>
+            <li>{order}</li>
           </ul>
         </nav>
       </section>
       <div className="m-4">
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xlg:grid-cols-3">
           {reposArray.map((repo, index) => {
-            while (index <= 10)
+            while (index < 10)
               return (
                 <div
                   key={repo.name}
