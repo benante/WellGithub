@@ -5,6 +5,7 @@ import { fetchRepos } from '@/app/api/github';
 import { Repo } from '@/app/types/types';
 import Link from 'next/link';
 import sortBy from '@/app/sortBy';
+import Pagination from '@/app/components/Pagination';
 
 const ReposPage = () => {
   const params = useParams();
@@ -56,7 +57,7 @@ const ReposPage = () => {
     sortBy(orderedArray, newOrder);
     setReposArray(orderedArray);
   };
-
+  console.log(indexPagination);
   return (
     <main className="my-14">
       <div className="flex flex-col items-center ">
@@ -77,13 +78,10 @@ const ReposPage = () => {
           </select>
         </section>
       </div>
-      <section>
-        <nav aria-label="pagination">
-          <ul>
-            <li>{order}</li>
-          </ul>
-        </nav>
-      </section>
+      <Pagination
+        arrayLenght={reposArray.length}
+        setIndexPagination={setIndexPagination}
+      />
       <div className="m-4">
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xlg:grid-cols-3">
           {reposArray.map((repo, index) => {
