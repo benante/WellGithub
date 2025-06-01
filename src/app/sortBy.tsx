@@ -3,7 +3,7 @@ import { Repo } from './types/types';
 const sortBy = (array: Repo[], param: string): Repo[] => {
   switch (param) {
     case 'last-updated':
-      console.log('lastUpda');
+      console.log('lastUpdated');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectB.updated_at).getTime() -

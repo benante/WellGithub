@@ -12,8 +12,8 @@ const ReposPage = () => {
   const userName = params.username as string;
 
   const [reposArray, setReposArray] = useState<Repo[]>([]);
-  const [order, setOrder] = useState<string>('');
-  const [indexPagination, setIndexPagination] = useState<number>(0);
+  const [currentIndexPagination, setIndexPagination] = useState<number>(1);
+  const [renderedRepos, setRenderedRepos] = useState<Repo[]>([]);
 
   // PAGINATION >>
   // 1. Set number pages
@@ -45,19 +45,50 @@ const ReposPage = () => {
       });
 
       setReposArray(copyArray);
+      setRenderedRepos(copyArray.slice(0, 10));
     } catch (error) {
       console.log(error);
     }
   };
 
+  const sliceArray = (indexPagination: number) => {
+    const sliceBy10 = indexPagination * 10;
+    const copyRepos = [...reposArray];
+    console.group('Pagination func', copyRepos);
+    // Case Index 1
+    if (indexPagination === 1) {
+      setRenderedRepos(copyRepos.slice(0, sliceBy10));
+      console.log('case1');
+      console.log(copyRepos.slice(0, sliceBy10));
+      return;
+    }
+    // Case all indexes
+    if (indexPagination * 10 < copyRepos.length) {
+      setRenderedRepos(copyRepos.slice(sliceBy10 - 10, sliceBy10));
+      console.log('case2');
+      console.log(copyRepos.slice(sliceBy10 - 10, sliceBy10));
+      return;
+    }
+    // Case last index
+    setRenderedRepos(copyRepos.slice(sliceBy10 - 10));
+    console.log('caseLast');
+    console.log(copyRepos.slice(sliceBy10 - 10));
+    console.groupEnd();
+  };
+
   const handleOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newOrder = e.currentTarget.value;
-    setOrder(newOrder);
     const orderedArray = [...reposArray];
-    sortBy(orderedArray, newOrder);
-    setReposArray(orderedArray);
+    console.group('handleOrder from reposArray', reposArray);
+    console.log('orderedArrays', orderedArray);
+    sortBy(reposArray, newOrder);
+    setIndexPagination(1);
+
+    setRenderedRepos(reposArray.slice(0, 10));
+    console.log('renderedRep', renderedRepos);
+    console.groupEnd();
   };
-  console.log(indexPagination);
+
   return (
     <main className="my-14">
       <div className="flex flex-col items-center ">
@@ -81,58 +112,59 @@ const ReposPage = () => {
       <Pagination
         arrayLenght={reposArray.length}
         setIndexPagination={setIndexPagination}
+        sliceArray={sliceArray}
+        currentIndexPagination={currentIndexPagination}
       />
       <div className="m-4">
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xlg:grid-cols-3">
-          {reposArray.map((repo, index) => {
-            while (index < 10)
-              return (
-                <div
-                  key={repo.name}
-                  className=" bg-white flex flex-col  p-8 my-4 borders-container shadow "
-                >
-                  <li className="mb-2">
-                    <strong>{repo.name.toUpperCase()}</strong>
-                    {repo.description && <p>{repo.description}</p>}
-                  </li>
-
-                  <p>
-                    <strong>Github page</strong>:{' '}
+          {renderedRepos.map((repo) => {
+            return (
+              <div
+                key={repo.name}
+                className=" bg-white flex flex-col  p-8 my-4 borders-container shadow "
+              >
+                <li className="mb-2">
+                  <strong>{repo.name.toUpperCase()}</strong>
+                  {repo.description && <p>{repo.description}</p>}
+                </li>
+                <span>{currentIndexPagination}</span>
+                <p>
+                  <strong>Github page</strong>:{' '}
+                  <Link
+                    className="text-blue-600 break-words"
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {repo.html_url}
+                  </Link>
+                </p>
+                <p>
+                  <strong>Project webpage</strong>:{' '}
+                  {repo.homepage !== undefined ? (
                     <Link
                       className="text-blue-600 break-words"
-                      href={repo.html_url}
+                      href={repo.homepage!}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {repo.html_url}
+                      {repo.homepage}
                     </Link>
-                  </p>
-                  <p>
-                    <strong>Project webpage</strong>:{' '}
-                    {repo.homepage !== undefined ? (
-                      <Link
-                        className="text-blue-600 break-words"
-                        href={repo.homepage!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {repo.homepage}
-                      </Link>
-                    ) : (
-                      <>N/A</>
-                    )}
-                  </p>
-                  <p>
-                    <strong>Created at</strong>: {repo.created_at}
-                  </p>
-                  <p>
-                    <strong>Last update</strong>: {repo.updated_at}
-                  </p>
-                  <p>
-                    <strong>Main language</strong>: {repo.language}
-                  </p>
-                </div>
-              );
+                  ) : (
+                    <>N/A</>
+                  )}
+                </p>
+                <p>
+                  <strong>Created at</strong>: {repo.created_at}
+                </p>
+                <p>
+                  <strong>Last update</strong>: {repo.updated_at}
+                </p>
+                <p>
+                  <strong>Main language</strong>: {repo.language}
+                </p>
+              </div>
+            );
           })}
         </ul>
       </div>
