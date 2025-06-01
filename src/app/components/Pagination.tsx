@@ -45,14 +45,14 @@ const Pagination = ({
 
   return (
     <section>
-      <nav aria-label="pagination">
-        <ul className="flex">
+      <nav className="flex justify-end mt-4 mx-4" aria-label="pagination">
+        <ul className="flex gap-2 ">
           {length.map((index) => (
             <button onClick={() => handleRendering(index)} key={index}>
               <li
                 style={
                   index === currentIndexPagination
-                    ? { fontWeight: 'bolder' }
+                    ? { fontWeight: 'bolder', textDecorationLine: 'underline' }
                     : undefined
                 }
               >
