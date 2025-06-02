@@ -10,8 +10,8 @@ export const fetchUser = async (username: string) => {
 
 // Fetch user' s repos
 export const fetchRepos = async (username: string) => {
-  const res = await fetch(`https://api.github.com/users/${username}/repos`)
+  const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
   const userRepos = await res.json()
-  
+  console.log("repos:" , userRepos)
   return userRepos
 };
