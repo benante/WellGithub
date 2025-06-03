@@ -28,24 +28,24 @@ const ReposPage = () => {
     try {
       const repos = await fetchRepos(userName);
 
-      if (!repos) {
-        throw new Error('Repos cannot be fetched');
-      }
-      const copyArray = repos.map((repo: Repo) => {
-        const repository = {
-          name: repo.name,
-          description: repo.description,
-          html_url: repo.html_url,
-          created_at: new Date(repo.created_at).toDateString(),
-          updated_at: new Date(repo.updated_at).toDateString(),
-          language: repo.language || 'N/A',
-          homepage: repo.homepage || undefined,
-        };
-        return repository;
-      });
+      // if (!repos) {
+      //   throw new Error('Repos cannot be fetched');
+      // }
+      // const copyArray = repos.map((repo: Repo) => {
+      //   const repository = {
+      //     name: repo.name,
+      //     description: repo.description,
+      //     html_url: repo.html_url,
+      //     created_at: new Date(repo.created_at).toDateString(),
+      //     updated_at: new Date(repo.updated_at).toDateString(),
+      //     language: repo.language || 'N/A',
+      //     homepage: repo.homepage || undefined,
+      //   };
+      //   return repository;
+      // });
 
-      setReposArray(copyArray);
-      setRenderedRepos(copyArray.slice(0, 10));
+      // setReposArray(copyArray);
+      // setRenderedRepos(copyArray.slice(0, 10));
     } catch (error) {
       console.log(error);
     }
