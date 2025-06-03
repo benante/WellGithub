@@ -86,17 +86,17 @@ const ReposPage = () => {
         <section className="mt-5">
           <label htmlFor="selection">Order by:</label>
           <select
-            className=" bg-slate-200 ml-2 border-2   border-slate-900 rounded-md p-"
+            className=" bg-slate-200 ml-2 border-2 px-2  border-slate-900 rounded-md p-"
             name="selection"
             id="selection"
             onChange={handleOrder}
           >
-            <option value="">--Choose order--</option>
+            <option value="alphabet">alphabet</option>
             <option value="last-update">last update</option>
             <option value="last-commit">last commit</option>
             <option value="oldest">oldest</option>
             <option value="newest">newest</option>
-            <option value="alphabet">alphabet</option>
+            <option value="language">language</option>
           </select>
         </section>
       </div>
@@ -150,6 +150,9 @@ const ReposPage = () => {
                 </p>
                 <p>
                   <strong>Last update</strong>: {repo.updated_at}
+                </p>
+                <p>
+                  <strong>Last commit at</strong>: {repo.pushed_at}
                 </p>
                 <p>
                   <strong>Main language</strong>: {repo.language}

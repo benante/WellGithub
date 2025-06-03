@@ -2,37 +2,37 @@ import { Repo } from './types/types';
 
 const sortBy = (array: Repo[], param: string): Repo[] => {
   switch (param) {
+    case 'alphabet':
+      return array.sort((objectA, objectB) =>
+        objectA.name.localeCompare(objectB.name)
+      );
     case 'last-update':
-      console.log('lastUpdate');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectB.updated_at).getTime() -
           new Date(objectA.updated_at).getTime()
       );
     case 'last-commit':
-      console.log('lastCommit');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectB.pushed_at).getTime() -
           new Date(objectA.pushed_at).getTime()
       );
     case 'oldest':
-      console.log('old');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectA.created_at).getTime() -
           new Date(objectB.created_at).getTime()
       );
     case 'newest':
-      console.log('new');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectB.created_at).getTime() -
           new Date(objectA.created_at).getTime()
       );
-    case 'alphabet':
+    case 'language':
       return array.sort((objectA, objectB) =>
-        objectA.name.localeCompare(objectB.name)
+        (objectA.language ?? '').localeCompare(objectB.language ?? '')
       );
     default:
       return array;
