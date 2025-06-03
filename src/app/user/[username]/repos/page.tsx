@@ -92,7 +92,8 @@ const ReposPage = () => {
             onChange={handleOrder}
           >
             <option value="">--Choose order--</option>
-            <option value="last-updated">last updated</option>
+            <option value="last-update">last update</option>
+            <option value="last-commit">last commit</option>
             <option value="oldest">oldest</option>
             <option value="newest">newest</option>
             <option value="alphabet">alphabet</option>

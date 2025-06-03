@@ -2,12 +2,19 @@ import { Repo } from './types/types';
 
 const sortBy = (array: Repo[], param: string): Repo[] => {
   switch (param) {
-    case 'last-updated':
-      console.log('lastUpdated');
+    case 'last-update':
+      console.log('lastUpdate');
       return array.sort(
         (objectA, objectB) =>
           new Date(objectB.updated_at).getTime() -
           new Date(objectA.updated_at).getTime()
+      );
+    case 'last-commit':
+      console.log('lastCommit');
+      return array.sort(
+        (objectA, objectB) =>
+          new Date(objectB.pushed_at).getTime() -
+          new Date(objectA.pushed_at).getTime()
       );
     case 'oldest':
       console.log('old');
