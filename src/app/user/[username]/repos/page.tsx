@@ -28,24 +28,14 @@ const ReposPage = () => {
     try {
       const repos = await fetchRepos(userName);
 
-      // if (!repos) {
-      //   throw new Error('Repos cannot be fetched');
-      // }
-      // const copyArray = repos.map((repo: Repo) => {
-      //   const repository = {
-      //     name: repo.name,
-      //     description: repo.description,
-      //     html_url: repo.html_url,
-      //     created_at: new Date(repo.created_at).toDateString(),
-      //     updated_at: new Date(repo.updated_at).toDateString(),
-      //     language: repo.language || 'N/A',
-      //     homepage: repo.homepage || undefined,
-      //   };
-      //   return repository;
-      // });
+      if (!repos) {
+        throw new Error('Repos cannot be fetched');
+      }
 
-      // setReposArray(copyArray);
-      // setRenderedRepos(copyArray.slice(0, 10));
+      const copyArray: Repo[] = [...repos];
+
+      setReposArray(copyArray);
+      setRenderedRepos(copyArray.slice(0, 10));
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +131,7 @@ const ReposPage = () => {
                 </p>
                 <p>
                   <strong>Project webpage</strong>:{' '}
-                  {repo.homepage !== undefined ? (
+                  {repo.homepage !== null ? (
                     <Link
                       className="text-blue-600 break-words"
                       href={repo.homepage!}
@@ -168,6 +158,12 @@ const ReposPage = () => {
           })}
         </ul>
       </div>
+      <Pagination
+        arrayLenght={reposArray.length}
+        setIndexPagination={setIndexPagination}
+        sliceArray={sliceArray}
+        currentIndexPagination={currentIndexPagination}
+      />
     </main>
   );
 };

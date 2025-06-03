@@ -36,14 +36,26 @@ export const fetchRepos = async (username: string) => {
       throw new Error(`Repos cannot be fetched: error at ${page}, status: ${res.status}`);
     }
     let userRepos: Repo[] = await res.json();
-    
-    allRepos = [...allRepos, ...userRepos];
+    console.log("userRepos:", userRepos);
+    const copyArray = userRepos.map((repo: Repo) => {
+      const repository = {
+      name: repo.name,
+      description: repo.description,
+      html_url: repo.html_url,
+      created_at: new Date(repo.created_at).toDateString(),
+      updated_at: new Date(repo.updated_at).toDateString(),
+      pushed_at: new Date(repo.pushed_at).toDateString(),
+      language: repo.language || 'N/A',
+      homepage: repo.homepage || null,};
+      return repository;
+      });
+      allRepos = [...allRepos, ...copyArray];
+      console.log("allRepos:" , allRepos)
     if (userRepos.length < 100) {
       break;
     }
     page++;
   }
-  allRepos = allRepos.flat()
-  console.log("all rpoes:", allRepos);
+  
   return allRepos;
 };
