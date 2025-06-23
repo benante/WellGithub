@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { fetchRepos } from '@/app/api/github';
 import { Repo } from '@/app/types/types';
 import Link from 'next/link';
-import sortBy from '@/app/sortBy';
+import sortBy from '@/app/functions';
 import Pagination from '@/app/components/Pagination';
 
 const ReposPage = () => {

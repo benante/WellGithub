@@ -1,4 +1,5 @@
 import React from 'react';
+import { chunkArray } from '../functions';
 
 type PaginationProps = {
   arrayLenght: number;
@@ -13,13 +14,13 @@ const Pagination = ({
   setIndexPagination,
   sliceArray,
 }: PaginationProps) => {
-  const length: number[] = [];
+  const pagIndexes: number[] = [];
   let pages = arrayLenght;
   if (pages % 10 !== 0) {
     pages++;
   }
   for (let i = 1; i < pages / 10 + 1; i++) {
-    length.push(i);
+    pagIndexes.push(i);
   }
 
   const handleRendering = (index: number) => {
@@ -27,32 +28,26 @@ const Pagination = ({
     sliceArray(index);
   };
 
-  // const sliceArray = (indexPagination: number) => {
-  //   const sliceBy10 = indexPagination * 10;
-  //   const copyRepos = [...renderedRepos];
-  //   console.log(copyRepos);
-  //   // Case Index 1
-  //   if (indexPagination === 1) {
-  //     return copyRepos.slice(0, sliceBy10);
-  //   }
-  //   // Case all indexes
-  //   if (indexPagination * 10 < copyRepos.length) {
-  //     return copyRepos.slice(sliceBy10 - 10, sliceBy10);
-  //   }
-  //   // Case last index
-  //   return copyRepos.slice(sliceBy10 - 10);
-  // };
-
   return (
     <section>
       <nav className="flex justify-end mt-4 mx-4" aria-label="pagination">
         <ul className="flex gap-2 ">
-          {length.map((index) => (
+          {pagIndexes.map((index) => (
             <button onClick={() => handleRendering(index)} key={index}>
               <li
                 style={
                   index === currentIndexPagination
-                    ? { fontWeight: 'bolder', textDecorationLine: 'underline' }
+                    ? {
+                        backgroundColor: 'black',
+                        color: 'white',
+                        borderRadius: '1000%',
+                        marginLeft: '5px',
+                        marginRight: '5px',
+                        paddingLeft: '5px',
+                        paddingRight: '5px',
+                        fontWeight: 'bolder',
+                        // textDecorationLine: 'underline',
+                      }
                     : undefined
                 }
               >

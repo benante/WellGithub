@@ -39,4 +39,14 @@ const sortBy = (array: Repo[], param: string): Repo[] => {
   }
 };
 
+export const chunkArray = (arr: number[], size: number): number[][] => {
+  let finalArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i % size === 0) {
+      finalArray.push(arr.slice(i, i + size));
+    }
+  }
+  return finalArray;
+};
+
 export default sortBy;
