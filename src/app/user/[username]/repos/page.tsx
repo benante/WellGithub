@@ -7,7 +7,10 @@ import Link from 'next/link';
 import sortBy from '@/app/functions';
 import Pagination from '@/app/components/Pagination';
 
+import mervinPraison_data from '@app/test_object';
+
 const ReposPage = () => {
+  console.log(mervinPraison_data);
   const params = useParams();
   const userName = params.username as string;
 

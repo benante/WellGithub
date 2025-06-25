@@ -16,6 +16,7 @@ const Pagination = ({
 }: PaginationProps) => {
   const pagIndexes: number[] = [];
   let pages = arrayLenght;
+  console.log('pages', pages);
   if (pages % 10 !== 0) {
     pages++;
   }
