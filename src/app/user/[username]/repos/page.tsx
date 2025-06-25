@@ -7,10 +7,9 @@ import Link from 'next/link';
 import sortBy from '@/app/functions';
 import Pagination from '@/app/components/Pagination';
 
-import mervinPraison_data from '@app/test_object';
+import mervinPraison_data from '@/app/test_object';
 
 const ReposPage = () => {
-  console.log(mervinPraison_data);
   const params = useParams();
   const userName = params.username as string;
 
@@ -18,30 +17,28 @@ const ReposPage = () => {
   const [currentIndexPagination, setIndexPagination] = useState<number>(1);
   const [renderedRepos, setRenderedRepos] = useState<Repo[]>([]);
 
-  // PAGINATION >>
-  // 1. Set number pages
-  // 2. Render correct slice of array
-  // 3. Render pagination number
-
   useEffect(() => {
     getData();
   }, [userName]);
 
   const getData = async () => {
-    try {
-      const repos = await fetchRepos(userName);
+    // try {
+    //   const repos = await fetchRepos(userName);
 
-      if (!repos) {
-        throw new Error('Repos cannot be fetched');
-      }
+    //   if (!repos) {
+    //     throw new Error('Repos cannot be fetched');
+    //   }
 
-      const copyArray: Repo[] = [...repos];
+    //   const copyArray: Repo[] = [...repos];
 
-      setReposArray(copyArray);
-      setRenderedRepos(copyArray.slice(0, 10));
-    } catch (error) {
-      console.log(error);
-    }
+    // setReposArray(copyArray);
+    // setRenderedRepos(copyArray.slice(0, 10));
+    // THIS IS TEMPORARY. UNDO all COMMENTS once done and delete the following two lines
+    setReposArray(mervinPraison_data);
+    setRenderedRepos(mervinPraison_data.slice(0, 10));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const sliceArray = (indexPagination: number) => {

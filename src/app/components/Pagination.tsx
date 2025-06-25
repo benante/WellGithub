@@ -14,15 +14,18 @@ const Pagination = ({
   setIndexPagination,
   sliceArray,
 }: PaginationProps) => {
-  const pagIndexes: number[] = [];
-  let pages = arrayLenght;
-  console.log('pages', pages);
-  if (pages % 10 !== 0) {
-    pages++;
+  // Get number of indexPages given that each page displays 10 projects and create an array with them
+
+  const numOfIndexes: number[] = [];
+  let pages = arrayLenght / 10;
+  if (pages % 10 !== 0) pages++;
+
+  for (let i = 1; i < pages + 1; i++) {
+    numOfIndexes.push(i);
   }
-  for (let i = 1; i < pages / 10 + 1; i++) {
-    pagIndexes.push(i);
-  }
+
+  // create subArrays in chunks of 5
+  const indexesSubArray = chunkArray(numOfIndexes, 5);
 
   const handleRendering = (index: number) => {
     setIndexPagination(index);
@@ -33,7 +36,7 @@ const Pagination = ({
     <section>
       <nav className="flex justify-end mt-4 mx-4" aria-label="pagination">
         <ul className="flex gap-2 ">
-          {pagIndexes.map((index) => (
+          {numOfIndexes.map((index) => (
             <button onClick={() => handleRendering(index)} key={index}>
               <li
                 style={
